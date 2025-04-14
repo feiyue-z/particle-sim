@@ -10,7 +10,6 @@ export default class ConfettiParticle extends THREE.Mesh {
         this.position.copy( position );
         this.velocity = velocity.clone();
         this.angularVelocity = getRandomAngularVelocity();
-        this.orbitCenter = position.clone();
         this.color = color;
         this.age = 0; // In frame
         this.lifetime = 150; // In frame

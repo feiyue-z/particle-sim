@@ -99,16 +99,17 @@ function updateParticles( dt ) {
             p.rotation.x += dr.x;
             p.rotation.y += dr.y;
             p.rotation.z += dr.z;
-            
-            // // Get radial vector from center to particle
-            // // const orbitCenter = new THREE.Vector3(1,1,1); // <- TODO:
-            // const r = p.position.clone().sub( p.orbitCenter );
-    
-            // // Calculate tangential velocity due to angular velocity
-            // const v_swirl = new THREE.Vector3().crossVectors( p.angularVelocity, r );
-            
-            // // Add swirl to velocity
-            // p.velocity.add( v_swirl.multiplyScalar( dt ) );
+
+            if ( p.orbitCenter ) {
+                // Get radial vector from center to particle
+                const r = p.position.clone().sub( p.orbitCenter );
+
+                // Calculate tangential velocity due to angular velocity
+                const v_swirl = new THREE.Vector3().crossVectors( p.angularVelocity, r );
+
+                // Add swirl to velocity
+                p.velocity.add( v_swirl.multiplyScalar( dt ) );
+            }
         }
 
         // Apply gravity and drag
