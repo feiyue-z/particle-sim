@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 
 const texturePaths = [
-    'public/textures/bubble/bubble_1.png',
-    'public/textures/bubble/bubble_2.png',
-    'public/textures/bubble/bubble_3.png',
-    'public/textures/bubble/bubble_4.png',
-    'public/textures/bubble/bubble_5.png',
-    'public/textures/bubble/bubble_6.png',
-    'public/textures/bubble/bubble_7.png',
+    'textures/bubble/bubble_1.png',
+    'textures/bubble/bubble_2.png',
+    'textures/bubble/bubble_3.png',
+    'textures/bubble/bubble_4.png',
+    'textures/bubble/bubble_5.png',
+    'textures/bubble/bubble_6.png',
+    'textures/bubble/bubble_7.png',
 ];
 
 export default class BubbleParticle extends THREE.Sprite {
