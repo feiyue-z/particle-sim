@@ -84,10 +84,9 @@ function updateParticles( dt ) {
             continue;
         }
 
-        const { mass, gravity, jitterFactor } = particleParams[ emitterSettings.type ];
+        const { mass, gravity, jitterFactor, drag } = particleParams[ emitterSettings.type ];
 
         // Calculate air resistence (force produced by drag)
-        const drag = 0.2;
         const f_drag = p.velocity.clone().multiplyScalar( -drag );
         
         if ( p.angularVelocity ) {
@@ -125,7 +124,6 @@ function updateParticles( dt ) {
         // Update position
         // Δp = v⋅Δt
         const dp = p.velocity.clone().multiplyScalar( dt );
-        // const prev = p.position.clone();
         p.position.add( dp );
 
         // Apply jitter

@@ -368,13 +368,13 @@ function createVisualizationControlPanel() {
 }
 
 function createParticleControlPanel( type ) {
-    const massController = createValueContoller(
-        "Mass",
-        () => particleParams[ type ].mass,
-        v => particleParams[ type ].mass = v,
-        0.01,
-        { min: 0.01, max: 50 }
-    );
+    // const massController = createValueContoller(
+    //     "Mass",
+    //     () => particleParams[ type ].mass,
+    //     v => particleParams[ type ].mass = v,
+    //     0.01,
+    //     { min: 0.01, max: 50 }
+    // );
     const gravityController = createValueContoller(
         "Gravity",
         () => particleParams[ type ].gravity,
@@ -389,8 +389,15 @@ function createParticleControlPanel( type ) {
         0.1,
         { min: 0, max: 1 }
     );
+    const dragController = createValueContoller(
+        "Drag",
+        () => particleParams[ type ].drag,
+        v => particleParams[ type ].drag = v,
+        0.1,
+        { min: 0, max: 1 }
+    );
 
-    const controls = [ massController, gravityController, jitterController ];
+    const controls = [ gravityController, jitterController, dragController ];
     arrangeVertically( controls );
 
     const panel = new THREE.Group();

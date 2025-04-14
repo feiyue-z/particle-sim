@@ -10,7 +10,7 @@ export default class ballParticle extends THREE.Mesh {
         this.velocity = velocity.clone();
         this.velocity.z = -3;
         this.angularVelocity = getRandomAngularVelocity();
-        this.orbitCenter = new THREE.Vector3( 0, 1, -1 );
+        this.orbitCenter = position.clone();
         this.age = 0; // In frame
         this.lifetime = 150; // In frame
         this.path = [];
@@ -24,8 +24,8 @@ export default class ballParticle extends THREE.Mesh {
 function getRandomAngularVelocity( maxSpin = 5 ) {
     // Rotating speed in radian/sec around x, y, z
     return new THREE.Vector3(
-        ( Math.random() - 0.5 ) * 2 * maxSpin,
-        ( Math.random() - 0.5 ) * 2 * maxSpin,
-        ( Math.random() - 0.5 ) * 2 * maxSpin
+        ( Math.random() - 0.5 ) * maxSpin,
+        ( Math.random() - 0.5 ) * maxSpin,
+        ( Math.random() - 0.5 ) * maxSpin
     );
 }

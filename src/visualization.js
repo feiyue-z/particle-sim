@@ -208,7 +208,7 @@ function createTrajectory( path, color = 0x000000 ) {
 }
 
 function createCones( curve, color = 0x00000 ) {
-    const count = Math.floor( curve.getLength() * 10 );
+    const count = Math.floor( curve.getLength() * 5 );
     const cone = createInstancedCone( count, color );
 
     const dummy = new THREE.Object3D();

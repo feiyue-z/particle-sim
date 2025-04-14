@@ -121,7 +121,7 @@ function updateIntersection( camera ) {
     mouseObjectOffset.copy( intersects[ 0 ].point ).sub( mouseSelectedObject.position );
     mouseObjectDepth = camera.position.distanceTo( mouseSelectedObject.position );
 
-    console.log( 'Mouse clicked on:', intersects[ 0 ].object );
+    // console.log( 'Mouse clicked on:', intersects[ 0 ].object );
 }
 
 function handleButtonClick() {

@@ -24,17 +24,20 @@ export const particleParams = {
     [ particleType.BUBBLE ]: {
         mass: 0.03,
         gravity: 2.0,
-        jitterFactor: 0.1
+        jitterFactor: 0.1,
+        drag: 0.1
     },
     [ particleType.CONFETTI ]: {
         mass: 0.5,
         gravity: -9.8,
-        jitterFactor: 0.0
+        jitterFactor: 0.0,
+        drag: 0.0
     },
     [ particleType.BALL ]: {
-        mass: 30.0,
+        mass: 100.0,
         gravity: -9.8,
-        jitterFactor: 0.0
+        jitterFactor: 0.0,
+        drag: 0.0
     }
 };
 
