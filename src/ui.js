@@ -373,7 +373,7 @@ function createParticleControlPanel( type ) {
         () => particleParams[ type ].mass,
         v => particleParams[ type ].mass = v,
         0.01,
-        { min: 0.1, max: 10 }
+        { min: 0.01, max: 50 }
     );
     const gravityController = createValueContoller(
         "Gravity",

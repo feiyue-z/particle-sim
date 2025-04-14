@@ -22,7 +22,7 @@ export const emitterSettings = {
 
 export const particleParams = {
     [ particleType.BUBBLE ]: {
-        mass: 0.01,
+        mass: 0.03,
         gravity: 2.0,
         jitterFactor: 0.1
     },
