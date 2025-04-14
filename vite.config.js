@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import fs from 'fs';
 
 export default defineConfig({
-  base: '/particles/',
+  base: '/particle-sim/',
   server: {
     host: '0.0.0.0',
     https: {

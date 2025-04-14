@@ -320,9 +320,7 @@ function createTape( curve, color, segments = 100 ) {
 
     const material = new THREE.MeshPhongMaterial( {
         color,
-        side: THREE.DoubleSide,
-        metalness: 0.3,
-        roughness: 0.2
+        side: THREE.DoubleSide
     } );
     const mesh = new THREE.Mesh( geometry, material );
 
@@ -333,20 +331,6 @@ function createTape( curve, color, segments = 100 ) {
         currentSegment: 0
     };
 }
-
-// function getRandomColor() {
-//     const h = Math.random();                 // Any hue
-//     const s = 0.5 + Math.random() * 0.5;     // Saturation: 50–100%
-//     const l = 0.2 + Math.random() * 0.2;     // Lightness: 20–40% for darkness
-
-//     const color = new THREE.Color();
-//     color.setHSL( h, s, l );
-//     return `#${ color.getHexString() }`;
-// }
-
-// function getDarkenColor( color ) {
-
-// }
 
 function getRandomColor() {
     const h = Math.random();                // Any hue
