@@ -21,7 +21,7 @@ export default class ballParticle extends THREE.Mesh {
     }
 }
 
-function getRandomAngularVelocity( maxSpin = 5 ) {
+function getRandomAngularVelocity( maxSpin = 0.5 ) {
     // Rotating speed in radian/sec around x, y, z
     return new THREE.Vector3(
         ( Math.random() - 0.5 ) * maxSpin,

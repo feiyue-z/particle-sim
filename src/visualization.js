@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import FakeGlowMaterial from './particles/glowMaterial';
-import { visualizationSettings, visualizationMode } from './global';
+import { VisualizationSettings, VisualizationMode } from './global';
 import { xor } from 'three/src/nodes/TSL.js';
 
 const paths = [];
@@ -31,14 +31,12 @@ export function initVisualization( scene ) {
         scene.remove( objects );
     }
 
-    console.log(`pathsData.length = ${ paths.length }`)
+    // console.log(`pathsData.length = ${ paths.length }`)
 
     // Visualize last MAX_PATH paths
     const MAX_PATH = 30;
     for ( let i = Math.max( 0, paths.length - MAX_PATH); i < paths.length; i++ ) {
         const path = paths[ i ];
-
-        // console.log(`path.length = ${path.length}`)
 
         const color = getRandomColor();
         const curve = new THREE.CatmullRomCurve3( path );
@@ -53,7 +51,7 @@ export function initVisualization( scene ) {
         tapeObjects.add( tape.mesh );
         tapePaths.push( tape );
 
-        const glows = createGlowSpheres( path, curve, getDarkenColor( color ) );
+        const glows = createGlowSpheres( curve, getDarkenColor( color ) );
         glowObjects.add( glows );
         glowPaths.push( { curve, glows } );
     }
@@ -74,20 +72,20 @@ export function addObjectsToScene() {
 
     objects.clear();
 
-    const { mode } = visualizationSettings;
+    const { mode } = VisualizationSettings;
     switch( mode ) {
-        case visualizationMode.CLASSIC:
+        case VisualizationMode.CLASSIC:
             if ( trajectoryObjects != null && coneObjects != null ) {
                 objects.add( trajectoryObjects );
                 objects.add( coneObjects );
             }
             break;
-        case visualizationMode.TAPE:
+        case VisualizationMode.TAPE:
             if ( tapeObjects != null ) {
                 objects.add( tapeObjects );
             }
             break;
-        case visualizationMode.NEON:
+        case VisualizationMode.NEON:
             if ( glowObjects != null ) {
                 objects.add( glowObjects );
             }
@@ -98,17 +96,17 @@ export function addObjectsToScene() {
 }
 
 export function animatePath() {
-    const { mode, animation } = visualizationSettings;
+    const { mode, animation } = VisualizationSettings;
     if ( !animation ) return;
 
     switch( mode ) {
-        case visualizationMode.CLASSIC:
+        case VisualizationMode.CLASSIC:
             animateClassic();
             break;
-        case visualizationMode.TAPE:
+        case VisualizationMode.TAPE:
             animateTape();
             break;
-        case visualizationMode.NEON:
+        case VisualizationMode.NEON:
             animateGlow();
             break;
     }
@@ -171,7 +169,7 @@ function animateGlow() {
 
 function animateTape() {
     tapePaths.forEach( ( tape ) => {
-        tape.currentSegment += 0.1;
+        tape.currentSegment += 0.2;
         if ( tape.currentSegment > tape.totalSegments ) {
             tape.currentSegment = 0;
         }
@@ -236,21 +234,24 @@ function createCones( curve, color = 0x00000 ) {
     return cone;
 }
 
-function createGlowSpheres( path, curve, color = 0x00000 ) {
-    const count = path.length;
+function createGlowSpheres( curve, color = 0x00000, maxCurveLength = 15 ) {
+    // Apply threshold to curve length
+    const curveLength = curve.getLength();
+    const tMax = Math.min( 1, maxCurveLength / curveLength );
+
+    const count = Math.floor( curveLength * 20 * tMax );
     const glow = createInstancedGlow( count, color );
 
     const dummy = new THREE.Object3D();
     const ts = [];
 
     for ( let i = 0; i < count; i++ ) {
-        const t = i / count;
+        const t = ( i / count ) * tMax;
         ts.push( t );
 
         const pos = curve.getPoint( t );
 
         dummy.position.copy( pos );
-        // dummy.quaternion.copy( quaternion );
         dummy.updateMatrix();
         glow.setMatrixAt( i, dummy.matrix );
     }
@@ -277,9 +278,7 @@ function createInstancedGlow( count, color ) {
 }
 
 function createTape( curve, color, segments = 100 ) {
-    // const segments = 100;
     const tapeWidth = 0.05;
-    // const geometry = new THREE.BufferGeometry();
     const positions = [];
 
     for ( let i = 0; i <= segments; i++ ) {

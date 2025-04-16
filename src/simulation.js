@@ -1,17 +1,18 @@
 import * as THREE from 'three';
 
-import { emitterSettings, particleType, particleParams } from './global';
+import { EmitterSettings, ParticleType, ParticleParams } from './global';
 import { addPath, initVisualization } from './visualization';
 import BubbleParticle from './particles/bubbleParticle';
 import ConfettiParticle from './particles/confettiParticle';
 import ballParticle from './particles/ballParticle';
 
-const bounceBack = -0.4; // Bounce back factor for collision
-const timeStep = 1 / 3;
+const BOUNCE = -0.6; // Bounce back factor for collision
+const TIME_STEP = 1 / 60;
 
 let _scene = null;
 let particles = [];
 let emissionAccumulator = 0;
+let dtAccumulator = 0;
 let visualizationPending = false;
 
 export function initSimulation( scene ) {
@@ -19,7 +20,12 @@ export function initSimulation( scene ) {
 }
 
 export function updateSimulation( dt ) {
-    updateParticles( dt );
+    dtAccumulator += dt;
+
+    while ( dtAccumulator >= TIME_STEP ) {
+        updateParticles( dt );
+        dtAccumulator -= TIME_STEP;
+    }
 
     if ( visualizationPending && particles.length === 0 ) {
         visualizationPending = false;
@@ -30,32 +36,32 @@ export function updateSimulation( dt ) {
 export function spawnParticles( dt, emitPos ) {
     visualizationPending = true;
 
-    emissionAccumulator += emitterSettings.rate * dt;
-    while ( emissionAccumulator >= timeStep ) {
+    emissionAccumulator += EmitterSettings.rate * dt;
+    while ( emissionAccumulator >= 1 ) {
         spawnParticle( emitPos );
-        emissionAccumulator -= timeStep;
+        emissionAccumulator -= 1;
     }
 }
 
 function spawnParticle( emitPos ) {
     const spread = new THREE.Vector3(
-        ( Math.random() - 0.5 ) * 0.5 * emitterSettings.spread,
+        ( Math.random() - 0.5 ) * 0.5 * EmitterSettings.spread,
         0,
-        ( Math.random() - 0.5 ) * 0.5 * emitterSettings.spread
+        ( Math.random() - 0.5 ) * 0.5 * EmitterSettings.spread
     );
     emitPos.add( spread );
 
     let p;
     const initVelocity = generateRandomVelocity( 30, 60, 1, 2, 0, 1 );
     
-    switch ( emitterSettings.type ) {
-        case particleType.BUBBLE:
+    switch ( EmitterSettings.type ) {
+        case ParticleType.BUBBLE:
             p = new BubbleParticle( emitPos, initVelocity );
             break;
-        case particleType.CONFETTI:
+        case ParticleType.CONFETTI:
             p = new ConfettiParticle( emitPos, initVelocity );
             break;
-        case particleType.BALL:
+        case ParticleType.BALL:
             p = new ballParticle( emitPos, initVelocity );
             break;
     }
@@ -84,7 +90,7 @@ function updateParticles( dt ) {
             continue;
         }
 
-        const { mass, gravity, jitterFactor, drag } = particleParams[ emitterSettings.type ];
+        const { mass, gravity, jitterFactor, drag } = ParticleParams[ EmitterSettings.type ];
 
         // Calculate air resistence (force produced by drag)
         const f_drag = p.velocity.clone().multiplyScalar( -drag );
@@ -138,7 +144,7 @@ function updateParticles( dt ) {
         const threshold = 0;
         if ( p.position.y <= threshold ) {
             p.position.y = threshold;
-            p.velocity.y *= bounceBack;
+            p.velocity.y *= BOUNCE;
         }
 
         p.path.push( p.position.clone() );

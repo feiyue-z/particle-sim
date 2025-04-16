@@ -1,12 +1,12 @@
 // ENUMERATION
 
-export const particleType = Object.freeze( {
+export const ParticleType = Object.freeze( {
     BUBBLE: "bubble",
     CONFETTI: "confetti",
     BALL: "ball"
 } );
 
-export const visualizationMode = Object.freeze( {
+export const VisualizationMode = Object.freeze( {
     CLASSIC: "classic",
     TAPE: "tape",
     NEON: "neon"
@@ -14,26 +14,26 @@ export const visualizationMode = Object.freeze( {
 
 // GLOBAL SETTING
 
-export const emitterSettings = {
+export const EmitterSettings = {
     rate: 10.0,
     spread: 0.0,
-    type: particleType.BUBBLE
+    type: ParticleType.BUBBLE
 };
 
-export const particleParams = {
-    [ particleType.BUBBLE ]: {
+export const ParticleParams = {
+    [ ParticleType.BUBBLE ]: {
         mass: 0.03,
         gravity: 2.0,
         jitterFactor: 0.1,
         drag: 0.1
     },
-    [ particleType.CONFETTI ]: {
+    [ ParticleType.CONFETTI ]: {
         mass: 0.5,
         gravity: -9.8,
         jitterFactor: 0.0,
         drag: 0.0
     },
-    [ particleType.BALL ]: {
+    [ ParticleType.BALL ]: {
         mass: 100.0,
         gravity: -9.8,
         jitterFactor: 0.0,
@@ -41,8 +41,8 @@ export const particleParams = {
     }
 };
 
-export const visualizationSettings = {
-    mode: visualizationMode.CLASSIC,
+export const VisualizationSettings = {
+    mode: VisualizationMode.CLASSIC,
     animation: false
 }
 

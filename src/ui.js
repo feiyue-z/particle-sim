@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
-import { emitterSettings, particleParams, particleType, visualizationSettings, visualizationMode, clickables } from './global';
+import { EmitterSettings, ParticleParams, ParticleType, VisualizationSettings, VisualizationMode, clickables } from './global';
 import { addObjectsToScene } from './visualization';
 
 export let loadedFont = null;
@@ -262,24 +262,21 @@ function createValueContoller( valueTag, getValue, setValue, delta, options = {}
 }
 
 function createEmitterControlPanel() {
-    // State reference
-    const settings = emitterSettings;
-
     // UI components
     const title = new Board( 3, 0.6, "Emitter Control" );
 
     const rateController = createValueContoller(
         "Rate",
-        () => settings.rate,
-        v => settings.rate = v,
+        () => EmitterSettings.rate,
+        v => EmitterSettings.rate = v,
         5,
         { min: 0, max: 25 }
     );
 
     const spreadController = createValueContoller(
         "Spread",
-        () => settings.spread,
-        v => settings.spread = v,
+        () => EmitterSettings.spread,
+        v => EmitterSettings.spread = v,
         0.5,
         { min: 0, max: 3 }
     );
@@ -305,9 +302,9 @@ function createVisualizationControlPanel() {
         2.4, 0.6,
         "Start animation",
         function () {
-            visualizationSettings.animation = !visualizationSettings.animation;
+            VisualizationSettings.animation = !VisualizationSettings.animation;
 
-            if ( visualizationSettings.animation ) {
+            if ( VisualizationSettings.animation ) {
                 this.setColor( ACTIVE_BUTTON_COLOR );
             } else {
                 this.resetColor();
@@ -349,7 +346,7 @@ function createVisualizationControlPanel() {
 
         activeButtonIndex = buttonIndex;
         buttons[ activeButtonIndex ].setColor( ACTIVE_BUTTON_COLOR );
-        visualizationSettings.mode = Object.values( visualizationMode )[ activeButtonIndex ];
+        VisualizationSettings.mode = Object.values( VisualizationMode )[ activeButtonIndex ];
         addObjectsToScene();
     }
 
@@ -377,22 +374,22 @@ function createParticleControlPanel( type ) {
     // );
     const gravityController = createValueContoller(
         "Gravity",
-        () => particleParams[ type ].gravity,
-        v => particleParams[ type ].gravity = v,
+        () => ParticleParams[ type ].gravity,
+        v => ParticleParams[ type ].gravity = v,
         1,
         { min: -100, max: 100 }
     );
     const jitterController = createValueContoller(
         "Jitter",
-        () => particleParams[ type ].jitterFactor,
-        v => particleParams[ type ].jitterFactor = v,
+        () => ParticleParams[ type ].jitterFactor,
+        v => ParticleParams[ type ].jitterFactor = v,
         0.1,
         { min: 0, max: 1 }
     );
     const dragController = createValueContoller(
         "Drag",
-        () => particleParams[ type ].drag,
-        v => particleParams[ type ].drag = v,
+        () => ParticleParams[ type ].drag,
+        v => ParticleParams[ type ].drag = v,
         0.1,
         { min: 0, max: 1 }
     );
@@ -408,9 +405,9 @@ function createParticleControlPanel( type ) {
 
 function createParticleControlConsole() {
     // Panels for each particle type
-    const bubblePanel = createParticleControlPanel( particleType.BUBBLE );
-    const confettiPanel = createParticleControlPanel( particleType.CONFETTI );
-    const ballPanel = createParticleControlPanel( particleType.BALL );
+    const bubblePanel = createParticleControlPanel( ParticleType.BUBBLE );
+    const confettiPanel = createParticleControlPanel( ParticleType.CONFETTI );
+    const ballPanel = createParticleControlPanel( ParticleType.BALL );
     const panels = [ bubblePanel, confettiPanel, ballPanel ];
 
     // Active panel pointer
@@ -457,7 +454,7 @@ function createParticleControlConsole() {
         controlConsole.add( activePanel );
 
         tabs[ activeTabIndex ].setColor( ACTIVE_BUTTON_COLOR );
-        emitterSettings.type = Object.values( particleType )[ activeTabIndex ];
+        EmitterSettings.type = Object.values( ParticleType )[ activeTabIndex ];
 
         updateClickables();
     }
