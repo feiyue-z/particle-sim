@@ -143,8 +143,7 @@ class CallbackButton extends RoundedRectangle {
 
         this.textMesh = new TextMesh( text );
         this.textMesh.position.set( 0, 0, 0.1 );
-        this.textMesh.raycast = () => null;
-        this.textMesh.layers.set( 1 );
+        this.textMesh.traverse( obj => obj.layers.set( 1 ) );
         this.add( this.textMesh );
 
         this.userData = {
@@ -176,8 +175,7 @@ class ValueAdjustButton extends RoundedRectangle {
         
         this.textMesh = new TextMesh( text );
         this.textMesh.position.set( 0, 0, 0.1 );
-        this.textMesh.raycast = () => null;
-        this.textMesh.layers.set( 1 );
+        this.textMesh.traverse( obj => obj.layers.set( 1 ) );
         this.add( this.textMesh );
 
         this.userData = {

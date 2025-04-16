@@ -25,6 +25,8 @@ function init() {
     // Set up camera & renderer
     ////
 
+    camera.layers.enable( 0 );
+    camera.layers.enable( 1 );
     camera.position.set( 0, 2, 3 );
 
     renderer.xr.enabled = true;

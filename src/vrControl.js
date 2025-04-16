@@ -4,6 +4,7 @@ import { spawnParticles } from './simulation';
 import { clickables } from './global';
 
 const controllerRaycaster = new THREE.Raycaster();
+controllerRaycaster.layers.set( 0 );
 controllerRaycaster.far = 10;
 
 let controllerSelecting = false;
