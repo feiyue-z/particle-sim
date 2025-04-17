@@ -267,8 +267,8 @@ function createEmitterControlPanel() {
         "Rate",
         () => EmitterSettings.rate,
         v => EmitterSettings.rate = v,
-        5,
-        { min: 0, max: 25 }
+        1,
+        { min: 0, max: 15 }
     );
 
     const spreadController = createValueContoller(

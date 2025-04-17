@@ -14,7 +14,7 @@ export const scene = new THREE.Scene();
 
 const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 5000 );
-const controller = renderer.xr.getController( 1 ); // First controller
+const controller = renderer.xr.getController( 1 );
 const clock = new THREE.Clock();
 const stats = new Stats()
 
@@ -137,6 +137,18 @@ renderer.xr.addEventListener('sessionstart', () => {
 
 function setupXRSession( session ) {
     renderer.setAnimationLoop( ( timestamp, frame ) => {
+        const inputSources = session.inputSources;
+        inputSources.forEach( input => {
+            if ( input.gamepad ) {
+                const buttons = input.gamepad.buttons;
+
+                // Button A is pressed
+                if ( buttons[ 4 ].pressed ) {
+                    session.end();
+                }
+            }
+        } );
+
         let deltaTime = clock.getDelta();
         deltaTime = Math.min( deltaTime, 0.1 );
     

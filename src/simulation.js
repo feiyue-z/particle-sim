@@ -23,7 +23,7 @@ export function updateSimulation( dt ) {
     dtAccumulator += dt;
 
     while ( dtAccumulator >= TIME_STEP ) {
-        updateParticles( dt );
+        updateParticles( TIME_STEP );
         dtAccumulator -= TIME_STEP;
     }
 
@@ -74,7 +74,7 @@ function updateParticles( dt ) {
     for ( let i = particles.length - 1; i >= 0; i-- ) {
         const p = particles[ i ];
         p.age++;
-      
+
         // Kill if lifetime exceeds
         if ( p.age == p.lifetime )  {
             // Add path for visualization
@@ -97,7 +97,7 @@ function updateParticles( dt ) {
         
         if ( p.angularVelocity ) {
             // Apply drag to angular velocity
-            p.angularVelocity.multiplyScalar( 1 - drag * dt );
+            // p.angularVelocity.multiplyScalar( 1 - drag * dt );
 
             // Update rotation
             const dr = p.angularVelocity.clone().multiplyScalar( dt );

@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 import FakeGlowMaterial from './particles/glowMaterial';
 import { VisualizationSettings, VisualizationMode } from './global';
-import { xor } from 'three/src/nodes/TSL.js';
 
 const paths = [];
 const conePaths = [];
@@ -239,7 +238,7 @@ function createGlowSpheres( curve, color = 0x00000, maxCurveLength = 15 ) {
     const curveLength = curve.getLength();
     const tMax = Math.min( 1, maxCurveLength / curveLength );
 
-    const count = Math.floor( curveLength * 20 * tMax );
+    const count = Math.floor( curveLength * tMax * 20 );
     const glow = createInstancedGlow( count, color );
 
     const dummy = new THREE.Object3D();

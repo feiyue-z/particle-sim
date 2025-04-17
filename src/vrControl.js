@@ -40,7 +40,7 @@ export function initVrControl( controller, skydome ) {
     controller.addEventListener( 'connected', ( event ) => {
         console.log( "Controller connected:", event.data.handedness );
         createLaserBeam( controller );
-    });
+    } );
 }
 
 // VR controller's equivalent of "mouse move"
