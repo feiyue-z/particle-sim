@@ -19,10 +19,6 @@ const clock = new THREE.Clock();
 const stats = new Stats()
 
 // TODO: add comments for code below
-document.querySelector( '.popup-button' ).addEventListener( 'click', () => {
-    document.querySelector( '.popup' ).classList.add( 'hidden' );
-} );
-
 const container = document.getElementById( 'three-container' );
 renderer.setSize( container.clientWidth, container.clientHeight, false );
 container.appendChild( renderer.domElement );
@@ -127,6 +123,10 @@ function setupWebSession( session ) {
     } );
 }
 
+////
+// Listeners
+////
+
 // Switch to XR session
 renderer.xr.addEventListener( 'sessionstart', () => {
     console.log( "XR session started." );
@@ -138,6 +138,21 @@ renderer.xr.addEventListener( 'sessionstart', () => {
     }
 
     setupXRSession( session );
+} );
+
+// TODO: add comment for code below
+const popupWindow = document.getElementById( 'popupWindow' );
+const openButton = document.getElementById( 'openButton' );
+const closeButton = document.getElementById( 'closeButton' );
+
+openButton.addEventListener( 'click', () => {
+    popupWindow.classList.remove( 'collapsed' );
+    openButton.classList.remove( 'show' );
+} );
+
+closeButton.addEventListener( 'click', () => {
+    popupWindow.classList.add( 'collapsed' );
+    openButton.classList.add( 'show' );
 } );
 
 function setupXRSession( session ) {
