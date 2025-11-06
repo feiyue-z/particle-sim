@@ -15,7 +15,7 @@ export const VisualizationMode = Object.freeze( {
 // GLOBAL SETTING
 
 export const EmitterSettings = {
-    rate: 5.0,
+    rate: 10.0,
     spread: 0.0,
     type: ParticleType.BUBBLE
 };

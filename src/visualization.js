@@ -33,7 +33,7 @@ export function initVisualization( scene ) {
     // console.log(`pathsData.length = ${ paths.length }`)
 
     // Visualize last MAX_PATH paths
-    const MAX_PATH = 30;
+    const MAX_PATH = 100;
     for ( let i = Math.max( 0, paths.length - MAX_PATH); i < paths.length; i++ ) {
         const path = paths[ i ];
 
@@ -205,7 +205,7 @@ function createTrajectory( path, color = 0x000000 ) {
 }
 
 function createCones( curve, color = 0x00000 ) {
-    const count = Math.floor( curve.getLength() * 5 );
+    const count = Math.floor( curve.getLength() * 8 );
     const cone = createInstancedCone( count, color );
 
     const dummy = new THREE.Object3D();
@@ -233,7 +233,7 @@ function createCones( curve, color = 0x00000 ) {
     return cone;
 }
 
-function createGlowSpheres( curve, color = 0x00000, maxCurveLength = 15 ) {
+function createGlowSpheres( curve, color = 0x00000, maxCurveLength = 60 ) {
     // Apply threshold to curve length
     const curveLength = curve.getLength();
     const tMax = Math.min( 1, maxCurveLength / curveLength );

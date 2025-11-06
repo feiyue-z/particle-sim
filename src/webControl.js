@@ -23,6 +23,9 @@ const NAVIGATE_STEP = 0.02;
 const ROTATION_SENSITIVITY = 0.001;
 
 export function initWebControl( camera, renderer ) {
+    // Three.js canvas
+    const canvas = document.querySelector( 'canvas' );
+
     // Listen to window resize event
     window.addEventListener( 'resize', () => {
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -32,6 +35,9 @@ export function initWebControl( camera, renderer ) {
     } );
 
     window.addEventListener( 'mousedown', ( event ) => {
+        // Dismiss events from 2D elements
+        if ( event.target !== canvas ) return;
+
         mouseDown = true;
 
         updateMouseNDC( event );

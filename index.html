@@ -3,11 +3,27 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Particles</title>
+		<link rel="stylesheet" href="/style.css" />
 		<style>
 			body { margin: 0; }
 		</style>
 	</head>
 	<body>
+		<div id="three-container">
+			<div class="popup">
+        <p class="popup-title">
+          Welcome to Particle Simulation
+        </p>
+        <p class="popup-text">
+          <span style="display: inline-block; width: 20px;">1.</span> Press and hold mouse to emit particles.<br>
+          <span style="display: inline-block; width: 20px;">2.</span> Click on control panels to adjust parameters.<br>
+          <span style="display: inline-block; width: 20px;">3.</span> Visualization will show up once particles disappear.<br>
+          <span style="display: inline-block; width: 20px;">4.</span> Use WASD keys to move camera.<br>
+          <span style="display: inline-block; width: 20px;">5.</span> Hold Shift while moving mouse to rotate camera.
+        </p>
+        <button class="popup-button">Close</button>
+			</div>
+		</div>
 		<script type="module" src="/main.js"></script>
 	</body>
 </html>
